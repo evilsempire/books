@@ -1,17 +1,12 @@
 const books = require('./books');
-const book = require('./book');
-const postBook = require('./postBook');
-const deleteBook = require('./deleteBook');
-const router = (app, fs) => {
+const router = (app) => {
 
     app.get('/', (req, res) => {
         res.send('welcome');
     });
 
-    books(app, fs);
-    book(app, fs);
-    postBook(app, fs);
-    deleteBook(app, fs);
+    books(app);
+    
 }
 
 module.exports = router;
