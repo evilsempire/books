@@ -1,21 +1,15 @@
 const express = require('express');
-const axios = require('axios');  //axios
+const bodyParser = require('body-parser');
+const fs = require('fs');
+
+
+
 const app = express();  //express app
 const PORT = 3000 //port
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/', async (req, res) => {
-    const books = await axios.get('https://jsonplaceholder.typicode.com/users')
-                        .then(results =>{
-                            console.log("results", results);
-                            return results;
-                        }).catch(error => {
-                            console.log(error)
-                        });
-
-    res.json(
-        {books: (books.data)}
-        )
-})
+const routes = require('./routes/routes.js')(app, fs);
 
 app.listen(PORT, () => {
     console.log("listening...")
