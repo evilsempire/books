@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 const routes = require('./routes/routes.js')(app)
 
 // invalid route error throw
-app.all('*', function (req, res) {
+app.use('*', function (req, res) {
   res.status(404).send({
     message: 'Invalid Route',
     status: 404
@@ -19,9 +19,11 @@ app.all('*', function (req, res) {
 
 app.use(function (err, req, res, next) {
   // formulate an error response here
-  res.status(500).send({
-    error: err
-  })
+  let statusToSend = err.status
+  if (!statusToSend) {
+    statusToSend = 500
+  }
+  res.status(statusToSend).json(err)
 })
 
 app.listen(PORT, () => {

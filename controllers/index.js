@@ -33,11 +33,7 @@ const getBook = (req, res, next) => {
           message: null
         })
       } else {
-        res.status(400).send({
-          status: 400,
-          data: null,
-          message: 'ID is required'
-        })
+        next({ status: 400, message: 'ID required' })
       }
     },
     true,
@@ -84,12 +80,11 @@ const deleteBook = (req, res, next) => {
       const books = data.filter(item => item.id !== id)
 
       if (books.length === data.length) {
-        res.status(400).send({
+        let err = {
           status: 400,
-          message: 'ID is not present in data',
-          data: []
-        })
-        res.end()
+          message: 'ID not present '
+        }
+        next(err)
       } else {
         writeFile(
           JSON.stringify(books),
@@ -104,11 +99,11 @@ const deleteBook = (req, res, next) => {
         )
       }
     } else {
-      res.status(404).send({
-        message: 'No id specified',
-        data: [],
-        status: 400
-      })
+      let err = {
+        status: 400,
+        message: 'ID not present'
+      }
+      next(err)
     }
   }, true)
 }
