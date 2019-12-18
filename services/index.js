@@ -62,7 +62,7 @@ deleteTheBook = (id, callback) => {
 
       if (books.length === data.length) {
         let err = {
-          status: 200,
+          status: 400,
           message: "ID not present "
         };
         callback(err);
