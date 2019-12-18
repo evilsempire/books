@@ -32,7 +32,6 @@ findAllBooks = (id, callback) => {
   try {
     readFile(books => {
       let data = books;
-      let error;
       if (id) {
         data = books.filter(item => item.id === id);
 
@@ -45,8 +44,8 @@ findAllBooks = (id, callback) => {
       }
 
       callback({
-        status: 400,
-        message: data
+        status: 200,
+        data
       });
     });
   } catch (e) {
@@ -56,25 +55,29 @@ findAllBooks = (id, callback) => {
 
 //delete the book
 deleteTheBook = (id, callback) => {
-  readFile(data => {
-    // delete books now
-    const books = data.filter(item => item.id !== id);
+  try {
+    readFile(data => {
+      // delete books now
+      const books = data.filter(item => item.id !== id);
 
-    if (books.length === data.length) {
-      let err = {
-        status: 200,
-        message: "ID not present "
-      };
-      callback(err);
-    } else {
-      writeFile(JSON.stringify(books), () => {
-        callback({
+      if (books.length === data.length) {
+        let err = {
           status: 200,
-          message: "Successfully Deleted"
+          message: "ID not present "
+        };
+        callback(err);
+      } else {
+        writeFile(JSON.stringify(books), () => {
+          callback({
+            status: 200,
+            message: "Successfully Deleted"
+          });
         });
-      });
-    }
-  });
+      }
+    });
+  } catch (e) {
+    throw new Error(e.message);
+  }
 };
 
 module.exports = {

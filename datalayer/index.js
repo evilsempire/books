@@ -7,10 +7,8 @@ const readFile = (
 ) => {
   fs.readFile(filepath, encoding, (err, data) => {
     if (err) {
-      console.log(err);
       return err;
     }
-
     callback(JSON.parse(data));
   });
 };
@@ -26,7 +24,6 @@ const writeFile = (
     if (err) {
       return err;
     }
-
     callback();
   });
 };
