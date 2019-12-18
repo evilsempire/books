@@ -1,15 +1,16 @@
-const books = app => {
-  const books = require('../controllers')
-  // READ ALL BOOKS
-  app.get('/books', books.getBooks)
+const express = require("express");
+const methods = require("../method");
+//require controller
+const { getBooks, addBook, deleteBook } = require("../controllers");
 
-  // GET ONLY ONE SINGLE BOOK
-  app.get('/book/:id?', books.getBook)
+//require router
+const router = express.Router();
+//submit the routes
+router
+  .get("/:id?", getBooks)
+  .post("/", addBook)
+  .delete("/:id", deleteBook)
+  .all("/", methods());
 
-  // add book
-  app.post('/post', books.addBook)
-
-  app.delete('/delete/:id?', books.deleteBook)
-}
-
-module.exports = books
+//export the router
+module.exports = router;
