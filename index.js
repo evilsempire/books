@@ -12,7 +12,7 @@ app.use("/books", routes); //use the routes
 
 // invalid route error throw
 app.use("*", function(req, res) {
-  res.status(404).send({
+  res.status(404).json({
     message: "Invalid Route",
     status: 404
   });
