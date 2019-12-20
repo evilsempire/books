@@ -1,10 +1,9 @@
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
-const fs = require("fs");
 //const routes
 const routes = require("./routes/books");
 const app = express(); // express app
-const PORT = 3000; // port
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -27,6 +26,4 @@ app.use(function(err, req, res, next) {
   res.status(statusToSend).json(err);
 });
 
-app.listen(PORT, () => {
-  console.log("listening...");
-});
+module.exports = app;

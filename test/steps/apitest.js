@@ -1,10 +1,19 @@
-const defineSupportCode = require("cucumber").defineSupportCode;
+const app = require("../../index"); //import app
+const { defineSupportCode, AfterAll, BeforeAll } = require("cucumber");
+
 const assert = require("assert");
 const request = require("request");
 const uuid4 = require("uuid");
 
-let BaseUrl = "http://localhost:3000";
+let BaseUrl = "http://localhost:" + process.env.PORT;
+let server;
+BeforeAll(() => {
+  let PORT = process.env.PORT || 3000;
 
+  server = app.listen(PORT, () => {
+    console.log("Listening...");
+  });
+});
 defineSupportCode(function({ When, Then }) {
   let data, postResponse;
 
@@ -68,4 +77,8 @@ defineSupportCode(function({ When, Then }) {
   });
 
   //END == post request
+});
+
+AfterAll(() => {
+  server.close();
 });
