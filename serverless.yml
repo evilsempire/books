@@ -11,16 +11,13 @@ functions:
     handler: index.handler
     events:
       - http:
-          path: books/
-          method: get
+          path: /
+          method: ANY
+          cors: true
       - http:
-          path: books/{id}
-          method: get
-      - http:
-          path: books/
-          method: post
-      - http:
-          path: books/{id}
-          method: delete
+          path: /{proxy+}
+          method: ANY
+          cors: true
+
 plugins:
   - serverless-offline
