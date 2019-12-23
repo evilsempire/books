@@ -1,6 +1,5 @@
 require("dotenv").config();
 const express = require("express");
-const serverless = require("serverless-http"); //serverless-http
 const bodyParser = require("body-parser");
 //const routes
 const routes = require("./routes/books");
@@ -26,4 +25,4 @@ app.use(function(err, req, res, next) {
   res.status(statusToSend).json(err);
 });
 
-module.exports.handler = serverless(app); //export app as a handler
+module.exports = app; //export app as a handler

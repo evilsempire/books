@@ -8,7 +8,7 @@ provider:
 
 functions:
   restApiFunc:
-    handler: index.handler
+    handler: handler.handler
     events:
       - http:
           path: /
