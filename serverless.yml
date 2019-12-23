@@ -1,0 +1,26 @@
+service: express-app
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: dev
+  region: us-east-1
+
+functions:
+  restApiFunc:
+    handler: index.handler
+    events:
+      - http:
+          path: books/
+          method: get
+      - http:
+          path: books/{id}
+          method: get
+      - http:
+          path: post
+          method: post
+      - http:
+          path: delete/{id}
+          method: delete
+plugins:
+  - serverless-offline
