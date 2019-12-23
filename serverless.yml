@@ -17,10 +17,10 @@ functions:
           path: books/{id}
           method: get
       - http:
-          path: post
+          path: books/
           method: post
       - http:
-          path: delete/{id}
+          path: books/{id}
           method: delete
 plugins:
   - serverless-offline
